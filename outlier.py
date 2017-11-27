@@ -2,10 +2,6 @@ import pandas as pd
 import numpy as np
 
 
-
-
-
-
 #check z-score
 def getOutlierByFeature(df,feature):
 	v=df[feature].values
@@ -22,7 +18,7 @@ def getOutlierByFeature(df,feature):
 	return i
 	
 	
-#
+#distance based outlier detection for each class and feature
 def DBOutlierByFeature(df,feature, r, pi):
 	v=df[feature].values
 	N=len(v)
@@ -49,6 +45,8 @@ def DBOutlierByFeature(df,feature, r, pi):
 df0=pd.read_csv("data.csv",names=['class','F1','F2','F3','F4','F5','F6','F7','F8'])
 df0["id"]=df0.index
 
+
+#split data into different class
 dfs=[]
 for i in range(1,5):
 	df=df0.loc[ df0['class']==i]
@@ -56,8 +54,8 @@ for i in range(1,5):
 
 
 
+#get all the outlier ids
 outlier=[]
-
 for i in range(4):
 	print("working on class "+str(i))
 	for j in range(1,9):
@@ -69,6 +67,7 @@ for i in range(4):
 print("all outlier ids:")
 print(set(outlier))
 
+#print the outlier data
 for id in set(outlier):
 	print(df0.loc[df0["id"]==id])
 
